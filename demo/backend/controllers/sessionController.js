@@ -1,12 +1,8 @@
 const jwt = require("jsonwebtoken");
+const { ErrorCode } = require("../constants/errorCodes");
 
 const SESSION_SECRET = process.env.SESSION_SECRET || "default-secret-key";
 const SESSION_EXPIRATION = parseInt(process.env.SESSION_EXPIRATION, 10) || 3600;
-
-const Error = Object.freeze({
-  FIELD_CANNOT_BE_BLANK: "1",
-  INVALID_AUTHORIZATION: "2",
-});
 
 const createSession = (req, res) => {
   const authorization = req.headers.authorization;
@@ -15,7 +11,7 @@ const createSession = (req, res) => {
     return res.status(403).json({
       success: false,
       error: {
-        code: Error.FIELD_CANNOT_BE_BLANK,
+        code: ErrorCode.FIELD_CANNOT_BE_BLANK,
         message: "Authorization is missing or invalid",
         message_title: "Unauthorized",
       },
@@ -27,7 +23,7 @@ const createSession = (req, res) => {
     return res.status(403).json({
       success: false,
       error: {
-        code: Error.INVALID_AUTHORIZATION,
+        code: ErrorCode.INVALID_AUTHORIZATION,
         message: "Invalid credentials",
         message_title: "Unauthorized",
       },

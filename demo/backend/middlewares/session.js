@@ -1,20 +1,17 @@
 const jwt = require("jsonwebtoken");
+const { ErrorCode } = require("../constants/errorCodes");
 
 const SESSION_SECRET = process.env.SESSION_SECRET || "default-secret-key";
-
-const Error = Object.freeze({
-  FIELD_CANNOT_BE_BLANK: "1",
-  INVALID_AUTHORIZATION: "2",
-});
 
 const validateSession = (req, res, next) => {
   const authorization = req.headers.authorization;
 
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    return res.status(403).json({
+    return res.status(400)
+    .json({
       success: false,
       error: {
-        code: Error.FIELD_CANNOT_BE_BLANK,
+        code: ErrorCode.FIELD_CANNOT_BE_BLANK,
         message: "Authorization is missing or invalid",
         message_title: "Unauthorized",
       },
@@ -27,16 +24,25 @@ const validateSession = (req, res, next) => {
     const sessionData = jwt.verify(sessionToken, SESSION_SECRET);
 
     if (sessionData.ip !== req.ip) {
-      throw new Error("IP mismatch");
+      return res.status(403)
+      .json({
+        success: false,
+        error: {
+          code: ErrorCode.INVALID_AUTHORIZATION,
+          message: "Your session is invalid or expired. Please reload the page and try again!",
+          message_title: "Unauthorized",
+        },
+      });
     }
 
     req.session = sessionData;
     next();
   } catch (err) {
-    return res.status(403).json({
+    return res.status(403)
+    .json({
       success: false,
       error: {
-        code: Error.INVALID_AUTHORIZATION,
+        code: ErrorCode.INVALID_AUTHORIZATION,
         message: "Your session is invalid or expired. Please reload the page and try again!",
         message_title: "Unauthorized",
       },
