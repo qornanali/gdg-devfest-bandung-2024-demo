@@ -1,0 +1,44 @@
+# Config 
+.env
+
+# Firebase
+.firebase/
+.firebaserc
+
+# Flutter build directories
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+
+# iOS/Android build artifacts
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/*.xcconfig
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/build/
+ios/DerivedData/
+ios/.generated/
+
+android/.gradle/
+android/app/build/
+android/build/
+
+# Web build output
+build/web/
+
+# Flutter dependencies
+pubspec.lock
+
+# Debug files
+flutter_*.log
+*.stackdump
+
+# IDE/Editor files specific to Flutter
+.vscode/
+.idea/
+.metadata
+.project
+.classpath
