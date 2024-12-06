@@ -47,7 +47,9 @@ class _ChatPageState extends State<ChatPage> {
       _messages.add({
         'sender': 'Bot',
         'text': botResponse['message'],
-        'created_time': botResponse['created_time']
+        'created_time': botResponse['created_time'],
+        'processed_seconds': botResponse['processed_seconds'],
+        'usage_token': botResponse['gemini_usage_token'],
       });
     });
 
