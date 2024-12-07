@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  redis-stack:
+    image: redis/redis-stack:7.2.0-v13
+    container_name: redis-stack
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:

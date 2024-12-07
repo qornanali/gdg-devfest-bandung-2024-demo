@@ -16,6 +16,8 @@ class MessageList extends StatelessWidget {
           final sender = message['sender'];
           final text = message['text'];
           final createdTime = message['created_time'];
+          final processedSeconds = message['processed_seconds'];
+          final tokenUsed = message['usage_token'];
           final isSentByUser = sender == 'You';
 
           return Align(
@@ -47,6 +49,14 @@ class MessageList extends StatelessWidget {
                       fontSize: 10,
                       color: Colors.grey[600],
                     ),
+                  ),
+                  Text(
+                    !isSentByUser ? 'Processed=${processedSeconds}' : "",
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                  Text(
+                    !isSentByUser ? 'Token used=${tokenUsed}' : "",
+                    style: const TextStyle(fontSize: 10),
                   ),
                 ],
               ),
